@@ -1,0 +1,43 @@
+.contact-name{
+	font-size: 1.2em;
+	padding-top:5px;
+	padding-bottom:5px;
+}
+
+.contact-area{
+	padding-top:10px;
+	padding-bottom:10px;
+	margin-left: 15px;
+}
+
+.selected{
+	background-color: lightgray;
+}
+
+.contact-separator{
+	margin-bottom:10px;
+	margin-top:5px;
+}
+
+.other-info{
+	font-size: 1.3em;
+	margin-bottom:5px;
+}
+
+.address{
+	margin-left:20px;
+}
+
+div.contact:hover{
+	cursor:pointer;
+	background-color:#DCDCDC;
+}
+
+.no-contact{
+	color: gray;
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+} 
+

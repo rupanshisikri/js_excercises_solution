@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+	<meta charset="UTF-8"> 
+    <script src="node_modules/angular/angular.js"></script>
+    <link rel="stylesheet" href="style.css">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	<script src="index.js"></script>
+  </head>
+
+  <body ng-app="contactsApp">
+    <div ng-controller="contactsController" class="container">
+		<div class="row"><div class="col-md-6"><h1>My Contacts</h1></div></div>
+		<div class="row">
+			<div class="col-md-6">
+				<h2>Contacts</h2>
+			</div>
+			<div class="col-md-6" ng-show="isContactSelected">
+				<h2>Selected Contact</h2>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-5">
+				<div class="row" ng-repeat="contact in contacts" ng-click="selectContact(contact)" >
+					<div class="row contact contact-area" ng-class="{selected: contact.isSelected}">
+						<div class="col-sm-3">
+							<img ng-src="{{contact.avatarSrc}}"/>
+						</div>
+						<div class="col-sm-8">
+							<div class="address">
+								<strong><span class="contact-name">{{contact.name}}</span></strong><br>
+								{{contact.address}}<br>
+								{{contact.city}}<br>
+								<abbr title="Phone">P: </abbr>{{contact.phoneNumber}}
+							</div>
+						</div>
+					</div>
+					<hr class="contact-separator"/>
+				</div>
+			</div>
+			<div class="col-md-6 col-md-offset-1">
+				<div ng-if="isContactSelected">
+					<div class="row">
+						<div class="col-sm-3">
+							<img ng-src="{{selectedContact.avatarSrc}}"/>
+						</div>
+						<div class="col-sm-8">
+							<div>
+								<strong><span class="contact-name">{{selectedContact.name}}</span></strong><br>
+								{{selectedContact.address}}<br>
+								{{selectedContact.city}}<br>
+								<abbr title="Phone">P: </abbr>{{selectedContact.phoneNumber}}
+							</div>
+						</div>
+					</div>
+					<br/>
+					<div class="other-info">
+						<strong>Other Information</strong><br/>
+					</div>
+					<strong>Date of Birth: </strong><span>{{selectedContact.dateOfBirth | date: 'yyyy/MM/dd'}}</span><br/>
+					<strong>Note: </strong>{{selectedContact.notes}}
+				</div>
+				<div ng-if="!isContactSelected" class="no-contact">
+					<span class=""><h2>Select a contact</h2></span>
+				</div>
+			</div>
+		</div>
+	</div>
+  </body>
+
+</html>

@@ -1,0 +1,15 @@
+{
+  "name": "exercise-1",
+  "version": "1.0.0",
+  "description": "## Exercise #1",
+  "main": "index.js",
+  "scripts": {
+    "test": "babel-node --presets es2015 scripts/test.js",
+    "test:watch": "nodemon --exec npm test"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jasmine": "^2.6.0"
+  }
+}

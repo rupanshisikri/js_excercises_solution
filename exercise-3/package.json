@@ -1,0 +1,15 @@
+{
+  "name": "exercise-3",
+  "version": "1.0.0",
+  "description": "exercise-3 using angular JS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "rupanshi",
+  "license": "ISC",
+  "dependencies": {
+    "angular": "^1.6.4",
+    "express": "^4.15.2"
+  }
+}
