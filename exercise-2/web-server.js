@@ -1,4 +1,6 @@
 var express = require('express');
+var people = require('./people.json');
+var persons = require('./persons.json');
 
 var app = express();
 var port = 3000;
@@ -17,62 +19,32 @@ app.all("/*", function (req, res, next) {
 });
 
 peopleRouter.route('/people').get(function(req, res){
-	let responseJson = {
-		  data: [
-			{
-			  id: '123',
-			  _links: '/people/123',
-			},
-			{
-			  id: '124',
-			  _links: '/people/124',
-			},
-			{
-			  id: '125',
-			  _links: '/people/125',
-			}
-		]
-	};
 	
-	res.json(responseJson);
+	res.json(people);
 });
 
 peopleRouter.route('/people/:id').get(function(req, res){
-	let responseJson = {};
-	
-	if (req.params.id == 123){
-		responseJson = {
+					
+	let person = persons.find(function(element){
+				return element.id === req.params.id;				
+			});
+			
+	if(person != undefined){
+
+		let responseJson = {
 			  data: {
-				name: 'John Smith'
+				name: person.name
 			 }
 		};
-		
+			 
 		res.json(responseJson);
 	}
-	else if (req.params.id == 124){
-		responseJson = {
-			  data: {
-				name: 'Joe Keith'
-			 }
-		};
-		
-		res.json(responseJson);
-	}
-	else if (req.params.id == 125){
-		responseJson = {
-			  data: {
-				name: 'Sue Greens'
-			 }
-		};
-		
-		res.json(responseJson);
-	}
-	
 	else {
-		res.status(500);
+		res.status(500)
+			.send("Id does not exist: " + req.params.id);
 	}
 	
-	res.json(responseJson);
+	
 });
 
 app.use('/', peopleRouter);

@@ -4,14 +4,17 @@ const tests = require('./tests.json');
 
 describe('exercise 1 worstTest', () => {
   it('should test worst test score', () => {
-    expect(4).toEqual(exercise.worstTest().score);
+	  
+	var worstScore = tests.reduce((a,b) =>{ return a.score < b.score ? a : b;}).score;
+	
+    expect(worstScore).toEqual(exercise.worstTest(students, tests).score);
   });
 });
 
 describe('exercise 1 worstTest', () => {
   it('should test- student attended the worst test', () => {
 	  
-	var worstTest = exercise.worstTest();
+	var worstTest = exercise.worstTest(students, tests);
 	
 	var test = tests.find((ele) => { 
 					return (ele.student === worstTest.student.id) && ((new Date(ele.date)).toGMTString() === worstTest.date)
@@ -22,16 +25,9 @@ describe('exercise 1 worstTest', () => {
 });
 
 describe('exercise 1 rejectedStudents', () => {
-  it('should test rejected students list', () => {
-    expect(exercise.rejectedStudents()).toContain('Laverna Monahan');
-	expect(exercise.rejectedStudents()).not.toContain('Kaylee Howee');
-  });
-});
-
-describe('exercise 1 rejectedStudents', () => {
   it('should test average score of a student in rejected students list to be less than 6', () => {
 	  
-	var rejectedStudents = exercise.rejectedStudents();
+	var rejectedStudents = exercise.rejectedStudents(students, tests);
 
 	
 	for (var i= 0; i < rejectedStudents.length; i++){
@@ -59,7 +55,7 @@ describe('exercise 1 rejectedStudents', () => {
 describe('exercise 1 absences', () => {
   it('should test presence instance not included in absences', () => {
 	  
-	var absences = exercise.absences();
+	var absences = exercise.absences(students, tests);
 	
 	for(var i= 0; i < tests.length; i++){
 		
@@ -81,7 +77,7 @@ describe('exercise 1 absences', () => {
 describe('exercise 1 bestOfLastYear', () => {
   it('should test score is best', () => {
 	  
-	var bestTests = exercise.bestOfLastYear();
+	var bestTests = exercise.bestOfLastYear(students, tests);
 	
 	for(var i= 0; i < bestTests.length; i++){
 		

@@ -3,14 +3,14 @@ const students = require('./students.json');
 const tests = require('./tests.json');
 
 //to get test given by student
-var getStudentTests = function(studentID){
+var getStudentTests = function(tests, studentID){
 		return tests.filter((testObj) => {
 			return testObj.student === studentID;
 		});
 	};
 	
 //exercise funtion to get worst test based on lowest score
-var worstTest = function(){
+function worstTest(students, tests){
 		
 	let worstTestObj = tests.reduce((aTest, bTest) => {
 			return aTest.score < bTest.score ? aTest : bTest;
@@ -28,11 +28,11 @@ var worstTest = function(){
 };
 
 //exercise funtion to get names of rejected students with average score < 6
-var rejectedStudents = function(){
+function rejectedStudents(students, tests){
 	
 	//function to calculate average score
 	let averageScore = function(studentID){
-		let studentTests = getStudentTests(studentID);
+		let studentTests = getStudentTests(tests,studentID);
 		let totalScore = 0;
 		for ( let i = 0; i < studentTests.length; i++ ) {
 			totalScore += studentTests[i].score;
@@ -48,7 +48,7 @@ var rejectedStudents = function(){
 };
 
 //exercise funtion to get names of students absent on a test date 
-var absences = function(){
+function absences(students, tests){
 	
 	let absences = [];
 	
@@ -60,7 +60,7 @@ var absences = function(){
 
 	for ( let i = 0; i < students.length; i++ ) {
 		
-		let studentTests = getStudentTests(students[i].id);
+		let studentTests = getStudentTests(tests, students[i].id);
 		
 		for (let j = 0; j < testDates.length; j++){
 			
@@ -77,7 +77,7 @@ var absences = function(){
 };
 
 //exercise funtion to get best test of students with age > 16
-var bestOfLastYear = function(){
+function bestOfLastYear(students, tests){
 	
 	let bestTests = [];
 	
@@ -99,11 +99,12 @@ var bestOfLastYear = function(){
 							return getStudentAge(studentObj.birthDate) > 16;
 						});
 		
-	let getBestTest = function(studentID){
-						return getStudentTests(studentID).reduce((aTest, bTest) => {
-															return aTest.score > bTest.score ? aTest : bTest;
-														});
-					};	
+	function getBestTest(studentID){
+		return getStudentTests(tests, studentID)
+					.reduce((aTest, bTest) => {
+								return aTest.score > bTest.score ? aTest : bTest;
+							});
+	};	
 	
 	for ( let i = 0; i < elderStudents.length; i++ ) {		
 		bestTests.push(
@@ -116,16 +117,16 @@ var bestOfLastYear = function(){
 
 	
 console.log("Worst Test: ");
-console.log(worstTest());
+console.log(worstTest(students, tests));
 
 console.log("\n\nRejected Students: ");
-console.log(rejectedStudents());
+console.log(rejectedStudents(students, tests));
 
 console.log("\n\nAbsences: ");	
-absences().forEach(function(element){ console.log(element); });
+absences(students, tests).forEach(function(element){ console.log(element); });
 
 console.log("\n\nBest tests of Last year:");
-console.log(bestOfLastYear());
+console.log(bestOfLastYear(students, tests));
 
 
 exports.worstTest = worstTest;

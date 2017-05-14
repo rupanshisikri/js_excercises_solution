@@ -1,23 +1,37 @@
 (function(){
 angular.module('contactsApp', [])
-.controller('contactsController', ['$scope', '$http', function($scope, $http) {
+.controller('contactsController', ['$http', function($http) {
+	var ctrl = this;
 	
 	$http({
 	  method: 'GET',
 	  url: 'http://localhost:8000/contacts'
 	}).then( function onSuccess(response) {
-			  $scope.contacts = response.data; // response data 
+			  ctrl.contacts = response.data; // response data 
 			});
 			
-	$scope.selectContact = function(contact){
-		for(i=0;i<$scope.contacts.length;i++)
-		{
-			$scope.contacts[i].isSelected = false;
-		}
-		contact.isSelected = true;
-		$scope.selectedContact = contact;
-		$scope.isContactSelected = true;
+	ctrl.selectContact = function(contact){
+		ctrl.selectedContact = contact;
+		ctrl.isContactSelected = true;
 	}
 	
-}]);
+}])
+.directive('contactInfo', function(){
+	return{
+		require: 'E',
+		templateUrl: 'contact-info.html',
+		scope:{
+			info: '='
+		}
+	}
+})
+.directive('contactDetail', function(){
+	return{
+		require: 'E',
+		templateUrl: 'contact-detail.html',
+		scope:{
+			detail: '='
+		}
+	}
+});
 })();

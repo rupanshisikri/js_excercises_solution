@@ -10,8 +10,8 @@
   <body ng-app="app">
     <h1>Names:</h1>
 
-	<div ng-controller="fetchNamesController">
-		<div ng-repeat="name in names">			
+	<div ng-controller="fetchNamesController as ctrl">
+		<div ng-repeat="name in ctrl.names">			
 			{{name}}
 		</div>
 	</div>

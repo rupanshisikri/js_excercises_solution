@@ -18,58 +18,30 @@
   </head>
 
   <body ng-app="contactsApp">
-    <div ng-controller="contactsController" class="container">
+    <div ng-controller="contactsController as ctrl" class="container">
 		<div class="row"><div class="col-md-6"><h1>My Contacts</h1></div></div>
 		<div class="row">
 			<div class="col-md-6">
 				<h2>Contacts</h2>
 			</div>
-			<div class="col-md-6" ng-show="isContactSelected">
+			<div class="col-md-6" ng-show="ctrl.isContactSelected">
 				<h2>Selected Contact</h2>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-5">
-				<div class="row" ng-repeat="contact in contacts" ng-click="selectContact(contact)" >
-					<div class="row contact contact-area" ng-class="{selected: contact.isSelected}">
-						<div class="col-sm-3">
-							<img ng-src="{{contact.avatarSrc}}"/>
-						</div>
-						<div class="col-sm-8">
-							<div class="address">
-								<strong><span class="contact-name">{{contact.name}}</span></strong><br>
-								{{contact.address}}<br>
-								{{contact.city}}<br>
-								<abbr title="Phone">P: </abbr>{{contact.phoneNumber}}
-							</div>
-						</div>
+				<div class="row" ng-repeat="contact in ctrl.contacts" ng-click="ctrl.selectContact(contact)" >
+					<div class="row contact-area" ng-class="{selected: ctrl.selectedContact == contact}">
+						<contact-info info="contact"></contact-info>
 					</div>
 					<hr class="contact-separator"/>
 				</div>
 			</div>
 			<div class="col-md-6 col-md-offset-1">
-				<div ng-if="isContactSelected">
-					<div class="row">
-						<div class="col-sm-3">
-							<img ng-src="{{selectedContact.avatarSrc}}"/>
-						</div>
-						<div class="col-sm-8">
-							<div>
-								<strong><span class="contact-name">{{selectedContact.name}}</span></strong><br>
-								{{selectedContact.address}}<br>
-								{{selectedContact.city}}<br>
-								<abbr title="Phone">P: </abbr>{{selectedContact.phoneNumber}}
-							</div>
-						</div>
-					</div>
-					<br/>
-					<div class="other-info">
-						<strong>Other Information</strong><br/>
-					</div>
-					<strong>Date of Birth: </strong><span>{{selectedContact.dateOfBirth | date: 'yyyy/MM/dd'}}</span><br/>
-					<strong>Note: </strong>{{selectedContact.notes}}
+				<div ng-if="ctrl.isContactSelected">
+					<contact-detail detail="ctrl.selectedContact"></contact-detail>
 				</div>
-				<div ng-if="!isContactSelected" class="no-contact">
+				<div ng-if="!ctrl.isContactSelected" class="no-contact">
 					<span class=""><h2>Select a contact</h2></span>
 				</div>
 			</div>

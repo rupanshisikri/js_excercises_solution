@@ -11,5 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "jasmine": "^2.6.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1"
   }
 }
